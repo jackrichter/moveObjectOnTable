@@ -1,0 +1,5 @@
+com\test\moveobjectontable\MoveObjectOnTableApplication.class
+com\test\moveobjectontable\menu\ConsoleMenu.class
+com\test\moveobjectontable\service\CommandService.class
+com\test\moveobjectontable\object\TableMatrix.class
+com\test\moveobjectontable\service\impl\CommandServiceImpl.class
