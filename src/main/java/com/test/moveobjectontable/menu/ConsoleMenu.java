@@ -20,8 +20,8 @@ public class ConsoleMenu {
 
     private static final String HEADER_MATRIX = "- The size of the table as two integers [width, height]";
     private static final String HEADER_XY = "- The objects starting position as two integers [x, y]";
-    private static final String HEADER_SUCCESS_RESULT = "The simulation succeeded: [%d, %d]";
-    private static final String HEADER_FAILURE_RESULT = "Failed. Object falls off the table: [%d, %d]";
+    private static final String SUCCESS_RESULT = "The simulation succeeded: ";
+    private static final String FAILURE_RESULT = "Failed. Object falls off the table: ";
     private static final String COMMAND_QUIT = "quit simulation and print results to stdout";
     private static final String COMMAND_FORWARD = "move forward one step";
     private static final String COMMAND_BACKWARDS = "move backwards one step";
@@ -29,10 +29,14 @@ public class ConsoleMenu {
     private static final String COMMAND_SOUTH_WEST = "rotate counterclockwise 90 degrees (eg west to south)";
     private static final String SEPARATOR = "-------------------------------------------------------";
 
-    private List<String> commands = Arrays.asList(COMMAND_QUIT, COMMAND_FORWARD, COMMAND_BACKWARDS, COMMAND_NORTH_EAST, COMMAND_SOUTH_WEST);
+    private List<String> commandList = Arrays.asList(COMMAND_QUIT, COMMAND_FORWARD, COMMAND_BACKWARDS, COMMAND_NORTH_EAST, COMMAND_SOUTH_WEST);
     private Scanner scanner = new Scanner(System.in);
     private TableMatrix matrix;
+    private CommandService service;
 
+    /**
+     * Simulation start point
+     */
     public void run() {
         showMenu();
     }
@@ -43,9 +47,15 @@ public class ConsoleMenu {
         if (proceed) {
             showCommands();
             inputCommands();
+            showResult();
         }
     }
 
+    /**
+     * Reads the matrix size and the initial point's position.
+     *
+     * @return True if 4 comma separated digits where inputted, otherwise false.
+     */
     private boolean inputHeader() {
         // Get matrix input
         String headerInput = scanner.next();
@@ -58,20 +68,13 @@ public class ConsoleMenu {
         // Build the table matrix
         matrix = new TableMatrix(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]), Integer.valueOf(coords[2]), Integer.valueOf(coords[3]));
 
-        // Dev tests
-//        System.out.println(headerInput);
-//        for (String s: coords) {
-//            System.out.println(s);
-//        }
-//        System.out.println("matrix: " + matrix.toString());
-
         return true;
     }
 
     private void showCommands() {
         System.out.println(SEPARATOR);
         final int[] i = {0};
-        commands.forEach(name -> {
+        commandList.forEach(name -> {
             System.out.println(i[0] + " = " + name);
             i[0]++;
         });
@@ -80,15 +83,8 @@ public class ConsoleMenu {
 
     private void inputCommands() {
         String input = this.scanner.next();
-        String[] commands = input.split(",");
-        CommandService service = new CommandServiceImpl(Arrays.asList(commands), this.matrix);
-
-        // Dev tests
-//        System.out.println(input);
-//        for (String s: commands) {
-//            System.out.println(s);
-//        }
-//        System.out.println("commands4: " + service.toString());
+        String[] commandValues = input.split(",");
+         service = new CommandServiceImpl(Arrays.asList(commandValues), this.matrix, true);
     }
 
     private void showHeader() {
@@ -96,5 +92,19 @@ public class ConsoleMenu {
         System.out.println(HEADER_MATRIX);
         System.out.println(HEADER_XY);
         System.out.println();
+    }
+
+    /**
+     * Performs the simulation and display the result.
+     */
+    private void showResult() {
+        String result = service.simulate();
+
+        System.out.println(SEPARATOR);
+        if (service.isFailure()){
+            System.out.println(FAILURE_RESULT + result);
+        } else {
+            System.out.println(SUCCESS_RESULT + result);
+        }
     }
 }

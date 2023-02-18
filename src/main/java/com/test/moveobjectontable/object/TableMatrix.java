@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * The Object on which the simulation is done.
- * An instance of this object represents a table with an occupied cell
+ * An instance of this object represents a table with a point occupying a cell.
  */
 @Component
 @Data
