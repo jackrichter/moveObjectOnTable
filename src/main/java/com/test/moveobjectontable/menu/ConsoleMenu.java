@@ -1,6 +1,6 @@
 package com.test.moveobjectontable.menu;
 
-import com.test.moveobjectontable.object.TableMatrix;
+import com.test.moveobjectontable.objectpoint.TableMatrix;
 import com.test.moveobjectontable.service.CommandService;
 import com.test.moveobjectontable.service.impl.CommandServiceImpl;
 import lombok.AllArgsConstructor;

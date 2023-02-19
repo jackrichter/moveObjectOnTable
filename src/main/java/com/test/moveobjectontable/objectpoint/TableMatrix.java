@@ -1,4 +1,4 @@
-package com.test.moveobjectontable.object;
+package com.test.moveobjectontable.objectpoint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
