@@ -16,7 +16,7 @@ The application was developed using the following technologies:
   **Running the simulation game**  
   Clone or download this repository and place it anywhere in your file system.  
   Open a Command Prompt and move to the folder 'moveObjectOnTable'.  
-  Withinn that folder there is a sub-folder 'target' containing the executable jar file.
+  Withinn that folder there is a sub-folder 'target' containing the executable jar file.  
   While standing in the 'moveObjectOnTable folder run the following command to bring up the simulation game:  
   **java -jar target/moveObjectOnTable-0.0.1-SNAPSHOT.jar**  
   
