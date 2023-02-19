@@ -54,23 +54,23 @@ public class CommandServiceImpl implements CommandService {
 
     @Override
     public void moveForward() {
-        matrix.setPositionY(matrix.getPositionY() + 1);
-    }
-
-    @Override
-    public void moveBackwards() {
         matrix.setPositionY(matrix.getPositionY() - 1);
     }
 
     @Override
-    public void moveNorthEast() {
+    public void moveBackwards() {
         matrix.setPositionY(matrix.getPositionY() + 1);
+    }
+
+    @Override
+    public void moveNorthEast() {
+        matrix.setPositionY(matrix.getPositionY() - 1);
         matrix.setPositionX(matrix.getPositionX() + 1);
     }
 
     @Override
     public void moveSouthWest() {
-        matrix.setPositionY(matrix.getPositionY() - 1);
+        matrix.setPositionY(matrix.getPositionY() + 1);
         matrix.setPositionX(matrix.getPositionX() - 1);
     }
 

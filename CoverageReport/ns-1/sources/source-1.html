@@ -1,0 +1,213 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > ConsoleMenu</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.moveobjectontable.menu</a>
+</div>
+
+<h1>Coverage Summary for Class: ConsoleMenu (com.test.moveobjectontable.menu)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConsoleMenu</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/39)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.moveobjectontable.menu;
+&nbsp;
+&nbsp;import com.test.moveobjectontable.objectpoint.TableMatrix;
+&nbsp;import com.test.moveobjectontable.service.CommandService;
+&nbsp;import com.test.moveobjectontable.service.impl.CommandServiceImpl;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import lombok.Data;
+&nbsp;import lombok.NoArgsConstructor;
+&nbsp;import org.springframework.stereotype.Component;
+&nbsp;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Scanner;
+&nbsp;
+<b class="nc">&nbsp;@Data</b>
+<b class="nc">&nbsp;@NoArgsConstructor</b>
+<b class="nc">&nbsp;@AllArgsConstructor</b>
+&nbsp;@Component
+&nbsp;public class ConsoleMenu {
+&nbsp;
+&nbsp;    private static final String HEADER_MATRIX = &quot;- The size of the table as two integers [width, height]&quot;;
+&nbsp;    private static final String HEADER_XY = &quot;- The objects starting position as two integers [x, y]&quot;;
+&nbsp;    private static final String SUCCESS_RESULT = &quot;The simulation succeeded: &quot;;
+&nbsp;    private static final String FAILURE_RESULT = &quot;Failed. Object falls off the table: &quot;;
+&nbsp;    private static final String COMMAND_QUIT = &quot;quit simulation and print results to stdout&quot;;
+&nbsp;    private static final String COMMAND_FORWARD = &quot;move forward one step&quot;;
+&nbsp;    private static final String COMMAND_BACKWARDS = &quot;move backwards one step&quot;;
+&nbsp;    private static final String COMMAND_NORTH_EAST = &quot;rotate clockwise 90 degrees (eg north to east)&quot;;
+&nbsp;    private static final String COMMAND_SOUTH_WEST = &quot;rotate counterclockwise 90 degrees (eg west to south)&quot;;
+&nbsp;    private static final String SEPARATOR = &quot;-------------------------------------------------------&quot;;
+&nbsp;
+<b class="nc">&nbsp;    private List&lt;String&gt; commandList = Arrays.asList(COMMAND_QUIT, COMMAND_FORWARD, COMMAND_BACKWARDS, COMMAND_NORTH_EAST, COMMAND_SOUTH_WEST);</b>
+<b class="nc">&nbsp;    private Scanner scanner = new Scanner(System.in);</b>
+<b class="nc">&nbsp;    private TableMatrix matrix;</b>
+<b class="nc">&nbsp;    private CommandService service;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Simulation start point
+&nbsp;     */
+&nbsp;    public void run() {
+<b class="nc">&nbsp;        showMenu();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showMenu() {
+<b class="nc">&nbsp;        showHeader();</b>
+<b class="nc">&nbsp;        boolean proceed = inputHeader();</b>
+<b class="nc">&nbsp;        if (proceed) {</b>
+<b class="nc">&nbsp;            showCommands();</b>
+<b class="nc">&nbsp;            inputCommands();</b>
+<b class="nc">&nbsp;            showResult();</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Reads the matrix size and the initial point&#39;s position.
+&nbsp;     *
+&nbsp;     * @return True if 4 comma separated digits where inputted, otherwise false.
+&nbsp;     */
+&nbsp;    private boolean inputHeader() {
+&nbsp;        // Get matrix input
+<b class="nc">&nbsp;        String headerInput = scanner.next();</b>
+<b class="nc">&nbsp;        String[] coords = headerInput.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;        if (coords.length != 4) {</b>
+<b class="nc">&nbsp;            System.out.println();</b>
+<b class="nc">&nbsp;            System.out.println(&quot;Invalid number of arguments for the header.&quot;);</b>
+<b class="nc">&nbsp;            return false;</b>
+&nbsp;        }
+&nbsp;        // Build the table matrix
+<b class="nc">&nbsp;        matrix = new TableMatrix(Integer.valueOf(coords[0]), Integer.valueOf(coords[1]), Integer.valueOf(coords[2]), Integer.valueOf(coords[3]));</b>
+&nbsp;
+<b class="nc">&nbsp;        return true;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showCommands() {
+<b class="nc">&nbsp;        System.out.println(SEPARATOR);</b>
+<b class="nc">&nbsp;        final int[] i = {0};</b>
+<b class="nc">&nbsp;        commandList.forEach(name -&gt; {</b>
+<b class="nc">&nbsp;            System.out.println(i[0] + &quot; = &quot; + name);</b>
+<b class="nc">&nbsp;            i[0]++;</b>
+&nbsp;        });
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    private void inputCommands() {
+<b class="nc">&nbsp;        String input = this.scanner.next();</b>
+<b class="nc">&nbsp;        String[] commandValues = input.split(&quot;,&quot;);</b>
+<b class="nc">&nbsp;         service = new CommandServiceImpl(Arrays.asList(commandValues), this.matrix, true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void showHeader() {
+<b class="nc">&nbsp;        System.out.println(SEPARATOR);</b>
+<b class="nc">&nbsp;        System.out.println(HEADER_MATRIX);</b>
+<b class="nc">&nbsp;        System.out.println(HEADER_XY);</b>
+<b class="nc">&nbsp;        System.out.println();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Performs the simulation and display the result.
+&nbsp;     */
+&nbsp;    private void showResult() {
+<b class="nc">&nbsp;        String result = service.simulate();</b>
+&nbsp;
+<b class="nc">&nbsp;        System.out.println(SEPARATOR);</b>
+<b class="nc">&nbsp;        if (service.isFailure()){</b>
+<b class="nc">&nbsp;            System.out.println(FAILURE_RESULT + result);</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            System.out.println(SUCCESS_RESULT + result);</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 00:39</div>
+</div>
+</body>
+</html>

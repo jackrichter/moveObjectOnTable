@@ -1,0 +1,201 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CommandServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.test.moveobjectontable.service.impl</a>
+</div>
+
+<h1>Coverage Summary for Class: CommandServiceImpl (com.test.moveobjectontable.service.impl)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CommandServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    58,3%
+  </span>
+  <span class="absValue">
+    (7/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,4%
+  </span>
+  <span class="absValue">
+    (27/34)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.test.moveobjectontable.service.impl;
+&nbsp;
+&nbsp;import com.test.moveobjectontable.objectpoint.TableMatrix;
+&nbsp;import com.test.moveobjectontable.service.CommandService;
+&nbsp;import lombok.AllArgsConstructor;
+&nbsp;import lombok.Data;
+&nbsp;import lombok.NoArgsConstructor;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+<b class="nc">&nbsp;@Data</b>
+<b class="nc">&nbsp;@NoArgsConstructor</b>
+<b class="fc">&nbsp;@AllArgsConstructor</b>
+&nbsp;public class CommandServiceImpl implements CommandService {
+<b class="nc">&nbsp;    private List&lt;String&gt; commands;</b>
+<b class="nc">&nbsp;    private TableMatrix matrix;</b>
+&nbsp;    private boolean failure;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Performs the simulation as per the inputted commands.
+&nbsp;     * Command values outside the accepted range do not affect the simulation.
+&nbsp;     *
+&nbsp;     * @return The simulations result
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public String simulate() {
+<b class="fc">&nbsp;        String result = &quot;Stop command hasn&#39;t been given&quot;;</b>
+&nbsp;
+<b class="fc">&nbsp;        for (String s : commands) {</b>
+<b class="fc">&nbsp;            switch (s) {</b>
+&nbsp;                case &quot;0&quot;:
+<b class="fc">&nbsp;                    result = getResult();</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                case &quot;1&quot;:
+<b class="fc">&nbsp;                    moveForward();</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                case &quot;2&quot;:
+<b class="fc">&nbsp;                    moveBackwards();</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                case &quot;3&quot;:
+<b class="fc">&nbsp;                    moveNorthEast();</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                case &quot;4&quot;:
+<b class="fc">&nbsp;                    moveSouthWest();</b>
+<b class="fc">&nbsp;                    break;</b>
+&nbsp;                default:
+&nbsp;                    break;
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return result;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void moveForward() {
+<b class="fc">&nbsp;        matrix.setPositionY(matrix.getPositionY() - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void moveBackwards() {
+<b class="fc">&nbsp;        matrix.setPositionY(matrix.getPositionY() + 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void moveNorthEast() {
+<b class="fc">&nbsp;        matrix.setPositionY(matrix.getPositionY() - 1);</b>
+<b class="fc">&nbsp;        matrix.setPositionX(matrix.getPositionX() + 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void moveSouthWest() {
+<b class="fc">&nbsp;        matrix.setPositionY(matrix.getPositionY() + 1);</b>
+<b class="fc">&nbsp;        matrix.setPositionX(matrix.getPositionX() - 1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isFailure() {
+<b class="nc">&nbsp;        return failure;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Calculates whether the given commands cause the point fall off the matrix or not.
+&nbsp;     *
+&nbsp;     * @return A string indicating the point&#39;s position [x, y] or a constant [-1, -1] i case of failure.
+&nbsp;     */
+&nbsp;    private String getResult() {
+<b class="fc">&nbsp;        int x = matrix.getPositionX();</b>
+<b class="fc">&nbsp;        int y = matrix.getPositionY();</b>
+&nbsp;
+<b class="fc">&nbsp;        if((matrix.getWidth() - x) &lt; 0 || (matrix.getHeight() - y) &lt; 0) {</b>
+<b class="nc">&nbsp;            failure = true;</b>
+<b class="nc">&nbsp;            return &quot;[-1, -1]&quot;;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            failure = false;</b>
+<b class="fc">&nbsp;            return &quot;[&quot; + x + &quot;, &quot; + y + &quot;]&quot;;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-02-20 00:39</div>
+</div>
+</body>
+</html>

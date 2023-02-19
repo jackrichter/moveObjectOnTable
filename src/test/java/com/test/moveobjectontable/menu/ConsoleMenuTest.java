@@ -4,10 +4,7 @@ import com.test.moveobjectontable.objectpoint.TableMatrix;
 import com.test.moveobjectontable.service.CommandService;
 import com.test.moveobjectontable.service.impl.CommandServiceImpl;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,15 +14,9 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@RunWith(SpringRunner.class)
 class ConsoleMenuTest {
 
-    private TableMatrix matrix;
-
-    @Before
-    public void init() {
-        matrix = new TableMatrix(4, 4, 2, 2);
-    }
+    private TableMatrix matrix = new TableMatrix(4, 4, 2, 2);
 
     @Test
     void testHeaderLoadAndUserInput() {
@@ -86,11 +77,15 @@ class ConsoleMenuTest {
 
         // Command input missing quit command (0)
         String userInput = "1,4,1,3,2,4,2,4,1";
-        CommandService service = new CommandServiceImpl(new ArrayList<>(Arrays.asList(userInput)), matrix, true);
         ByteArrayInputStream input = new ByteArrayInputStream(userInput.getBytes());
         System.setIn(input);
 
         String expected = "Stop command hasn't been given";
+
+        // Handling the input to  be compared
+        String out = "1,4,1,3,2,4,2,4,1";
+        String[] lines = out.toString().split(",");
+        CommandService service = new CommandServiceImpl(new ArrayList<>(Arrays.asList(lines)), matrix, true);
 
         // Test simulation
         String actual = service.simulate();
