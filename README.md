@@ -25,5 +25,12 @@ The application was developed using the following technologies:
   You can download it from: "https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html".  
   Furthermore a system environment variable pointing to the jdk/bin folder must be set  
   so the appropriate commands (java, -jar) can be found.  
-  The process is easily done and there are planty of clear explanation on Google.  
+  The process is easily done and there are planty of clear explanation on Google.   
+  
+  **Maven**  
+  If you need to change anything in the code and want to re-run with the changes,  
+  you should first, as with the Java JDK, install Maven (https://maven.apache.org/) and set the system variable.  
+  Then open a Command Prompt in the object folder and run command:  
+  **>mvn clean package**  
+  
   
