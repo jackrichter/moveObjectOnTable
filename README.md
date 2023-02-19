@@ -20,3 +20,9 @@ The application was developed using the following technologies:
   While standing in the 'moveObjectOnTable folder run the following command to bring up the simulation game:  
   **java -jar target/moveObjectOnTable-0.0.1-SNAPSHOT.jar**  
   
+  **Observe**  
+  In order to be able to run the above command, your system must have a Java Runtime Environment (JDK) software installed.  
+  You can download it from: "https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html".  
+  Furthermore a system environment variable must be set so the appropriate commands (java, -jar) can be found.  
+  The process is easily done and there are planty of clear explanation on Google.  
+  
