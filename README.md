@@ -5,7 +5,8 @@ Simulate moving an object on a table (eg matrix), without the object fallig off 
 The application was developed using the following technologies:  
 - Java version 17.0.5  
 - Maven version 3.8.7  
-- Spring Boot 3 with Lombok dependency only.  
+- Spring Boot 3 with Lombok dependency only (removes a lot of boillerplate code).  
+- JUnit 5
   
   **Application**  
   This application is a simple simulation of a point inside a table being  
@@ -32,5 +33,14 @@ The application was developed using the following technologies:
   you should first, as with the Java JDK, install Maven (https://maven.apache.org/) and set the system variable.  
   Then open a Command Prompt in the object folder and run command:  
   **>mvn clean package**  
+  
+  **Test and Coverrage**  
+  The unit tests where perfomed on the two classes handlin all logic: 'MenuConsole' and 'CommandServiceImpl',  
+  which is the Iterface 'CommandService' implementation. I chose this setup to demonstrate the ability to let the application evolve in time.  
+  Testing the 'MenuConsole' class proved to be a bit cumbersome because of some characteristics of Spring Boot and stdin/stdout.  
+  That’s way chose to create tests that cover combined functionality instead of testing individual methods. 
+  Thus, the coverage report for this class became a bit wired.  
+  Tests and coverage for class ‘CommandServiceImpl’ are normal. Gaps a due to not testing boilerplate methods such as getters and setters.  
+  
   
   
