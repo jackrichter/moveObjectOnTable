@@ -4,6 +4,7 @@ Simulate moving an object on a table (eg matrix), without the object fallig off 
 **Technical details**  
 The application was developed using the following technologies:  
 - Java version 17.0.5  
+- IntelliJ IDEA Ultimate version 2022.3.2
 - Maven version 3.8.7  
 - Spring Boot 3 with Lombok dependency only (removes a lot of boillerplate code).  
 - JUnit 5
