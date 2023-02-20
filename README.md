@@ -6,7 +6,7 @@ The application was developed using the following technologies:
 - Java version 17.0.5  
 - IntelliJ IDEA Ultimate version 2022.3.2
 - Maven version 3.8.7  
-- Spring Boot 3 with Lombok dependency only (removes a lot of boillerplate code).  
+- Spring Boot 3 with Lombok dependency (removes a lot of boillerplate code).  
 - JUnit 5
 
 **Application**  
@@ -27,7 +27,12 @@ In order to be able to run the above command, your system must have a Java Runti
 You can download it from: "https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html".  
 Furthermore a system environment variable pointing to the jdk/bin folder must be set  
 so the appropriate commands (java, -jar) can be found.  
-The process is easily done and there are planty of clear explanation on Google.   
+The process is easily done and there are planty of clear explanation on Google. 
+
+**Spring Boot**  
+Though unusual to choose Spring Boot for developinng a console application, it brings many advantages  
+while developing Java code, non less Dependency Injection, many libradies that can easily be incorporated  
+should one wish further development options.
 
 **Maven**  
 If you need to change anything in the code and want to re-run with the changes,  
