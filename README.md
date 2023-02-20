@@ -15,7 +15,7 @@ The goal is to keep the point inside the table after finishing moving it (eg com
 The simulation game is run only once.  
 
 **Running the simulation game**  
-Clone or download this repository and place it anywhere in your file system.  
+Fork, clone or download this repository and place it anywhere in your file system.  
 Open a Command Prompt and move to the folder 'moveObjectOnTable'.  
 Withinn that folder there is a sub-folder 'target' containing the executable jar file.  
 While standing in the 'moveObjectOnTable folder run the following command to bring up the simulation game:  
